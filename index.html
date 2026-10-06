@@ -1,138 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Captain Tracker</title>
-<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#f5b800"><link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#FFD60A"><link rel="apple-touch-icon" href="icon-192.png">
+<meta name="color-scheme" content="light">
 <style>
-:root{--bg:#fffbe6;--card:#fff;--tx:#1a1a1a;--mu:#666;--ac:#f5b800;--bd:#e8e0b8;--gr:#13803a;--rd:#c62828;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15130a;--card:#211e10;--tx:#f3f0e0;--mu:#a9a58c;--bd:#3a3516;--gr:#4cc775;--rd:#ff7a7a}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:12px;max-width:560px;margin:auto}
-h1{font-size:20px;margin:4px 0 10px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:12px}
-.seg{display:flex;gap:6px;margin-bottom:10px}
-.seg button{flex:1;padding:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font-weight:600}
-.seg button.on{background:var(--ac);color:#000;border-color:var(--ac)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.big{font-size:22px;font-weight:800}
-.lbl{font-size:12px;color:var(--mu)}
-.net{grid-column:1/-1;text-align:center;padding:8px;border-radius:10px;background:var(--bg)}
-label{display:block;font-size:12px;color:var(--mu);margin:8px 0 2px}
-input,select{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-size:16px}
-.row{display:flex;gap:8px}
-.btn{width:100%;margin-top:10px;padding:12px;border:0;border-radius:10px;background:var(--ac);color:#000;font-weight:700;font-size:16px}
-.btn.alt{background:var(--card);color:var(--tx);border:1px solid var(--bd)}
-.item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd);font-size:13px}
-.item:last-child{border:0}
-.item button{border:0;background:none;color:var(--rd);font-size:18px}
-.pos{color:var(--gr);font-weight:700}.neg{color:var(--rd);font-weight:700}
-.gps{font-size:13px;color:var(--mu);margin-top:6px}
+:root{--y:#FFD60A;--ink:#17140F;--bg:#F3F4F6;--card:#fff;--line:#DADCE0;--mu:#5F6368;--go:#0B8A4B;--stop:#C8342B;color-scheme:light;box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:96px;max-width:520px;margin:auto}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.meter{background:var(--y);padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 22px;border-radius:0 0 28px 28px}
+.rng{display:flex;gap:6px;margin-bottom:14px}
+.rng button{border:0;background:transparent;padding:6px 14px;border-radius:99px;font-weight:600}
+.rng button.on{background:var(--ink);color:var(--y)}
+.lead{margin:0 0 6px;font-weight:600}
+.win{background:var(--ink);color:var(--y);border-radius:16px;padding:8px 18px;text-align:right;font-size:58px;font-weight:900;letter-spacing:-2px;font-variant-numeric:tabular-nums;line-height:1.15}
+.win.neg{color:#FF8A80}
+.bar{display:flex;height:12px;border-radius:99px;overflow:hidden;background:rgba(0,0,0,.15);margin:16px 0 8px}
+.bar i{display:block;height:100%}.p{background:var(--stop)}.x{background:#8A5A00}.g{background:var(--go)}
+.leg{display:flex;gap:14px;font-size:13px;flex-wrap:wrap}
+.leg b{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+section{padding:18px}
 .hide{display:none}
-</style>
-</head>
-<body>
-<h1>🏍️ Captain Tracker</h1>
+.ins{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+.ins b{font-size:20px}.ins p{margin:4px 0 0}.ins ul{margin:10px 0 0;padding-left:20px}.ins li{margin-bottom:6px}
+.g-good{color:var(--go);font-weight:700}.g-ok{color:#8A5A00;font-weight:700}.g-poor{color:var(--stop);font-weight:700}
+.stat{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.stat span{color:var(--mu)}.stat strong{font-size:22px;font-variant-numeric:tabular-nums}
+.pills{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px}
+.pills button{white-space:nowrap;border:2px solid var(--ink);background:transparent;border-radius:99px;padding:9px 16px;font-weight:700}
+.pills button.on{background:var(--ink);color:var(--y)}
+label{display:block;font-weight:600;margin:14px 0 6px}
+input{width:100%;border:2px solid var(--line);background:#fff;color:#17140F;-webkit-text-fill-color:#17140F;caret-color:#17140F;border-radius:14px;padding:13px 14px;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+input:focus{border-color:var(--ink);outline:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips{display:flex;gap:8px;margin-top:8px}
+.chips button{flex:1;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 0;font-weight:700}
+.hint{color:var(--mu);margin:8px 0 0;font-size:14px}
+.save{width:100%;margin-top:20px;border:0;border-radius:16px;background:var(--ink);color:var(--y);padding:16px;font-size:18px;font-weight:800}
+.gps{margin-top:14px;padding:14px;border:2px dashed var(--line);border-radius:14px}
+.gps strong{font-size:26px}
+.gps button{margin-top:10px;width:100%;border:2px solid var(--ink);background:transparent;border-radius:12px;padding:12px;font-weight:700}
+.day{display:flex;justify-content:space-between;margin:22px 0 4px;font-weight:800}
+.row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.row small{color:var(--mu);display:block}
+.row button{border:0;background:none;font-size:22px;color:var(--mu);padding:4px 10px}
+.in{color:var(--go);font-weight:700}.out{color:var(--stop);font-weight:700}
+.empty{color:var(--mu);padding:30px 0;text-align:center}
+nav{position:fixed;left:0;right:0;bottom:0;max-width:520px;margin:auto;background:var(--card);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around;padding:8px 10px calc(env(safe-area-inset-bottom,0px) + 8px)}
+nav button{border:0;background:none;padding:10px 20px;font-weight:700;color:var(--mu);border-radius:12px}
+nav button.on{color:var(--ink);background:var(--y)}
+nav .add{background:var(--ink);color:var(--y);font-size:18px;padding:12px 26px;border-radius:99px}
+nav .add.on{background:var(--ink);color:var(--y);box-shadow:0 0 0 3px var(--y)}
+#toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);background:var(--ink);color:var(--y);padding:10px 20px;border-radius:99px;font-weight:700;opacity:0;transition:.25s;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){#toast{transition:none}}
+</style></head><body>
+<header class="meter">
+  <div class="rng" id="rng"><button data-r="today" class="on">Today</button><button data-r="week">7 days</button><button data-r="all">All time</button></div>
+  <p class="lead">You kept</p>
+  <div class="win" id="net">₹0</div>
+  <div class="bar" id="bar"></div>
+  <div class="leg" id="leg"></div>
+</header>
 
-<div class="seg" id="range"><button data-r="today" class="on">Today</button><button data-r="all">All time</button></div>
-<div class="card"><div class="grid" id="sum"></div></div>
+<section id="v-home">
+  <div id="ins"></div>
+  <div id="stats"></div>
+</section>
 
-<div class="card">
-  <b>📍 Live GPS trip</b>
-  <div class="gps" id="gpsInfo">Phone GPS measures distance for you. Keep this page open while riding.</div>
-  <div class="big" id="gpsKm">0.00 km</div>
-  <button class="btn" id="gpsBtn">▶ Start: heading to pickup</button>
-</div>
+<section id="v-add" class="hide">
+  <div class="pills" id="modes"><button data-m="day" class="on">End of day</button><button data-m="trip">One trip</button><button data-m="fuel">Petrol</button><button data-m="exp">Tea & snacks</button></div>
 
-<div class="seg" id="tabs"><button data-t="day" class="on">Daily</button><button data-t="trip">Trip</button><button data-t="fuel">Petrol</button><button data-t="exp">Extras</button></div>
+  <div class="f" id="f-day">
+    <div class="two"><div><label for="o1">Odometer at start</label><input id="o1" type="number" inputmode="decimal"></div>
+    <div><label for="o2">Odometer at end</label><input id="o2" type="number" inputmode="decimal"></div></div>
+    <div class="two"><div><label for="de">Earned today (₹)</label><input id="de" type="number" inputmode="decimal"></div>
+    <div><label for="dn">Trips done</label><input id="dn" type="number" inputmode="numeric"></div></div>
+    <p class="hint" id="dkm">Distance: 0 km</p>
+    <button class="save" id="sDay">Save day</button>
+  </div>
 
-<div class="card" id="t-day">
-  <div class="row"><div style="flex:1"><label>Odometer start</label><input id="o1" type="number" inputmode="decimal"></div>
-  <div style="flex:1"><label>Odometer end</label><input id="o2" type="number" inputmode="decimal"></div></div>
-  <div class="row"><div style="flex:1"><label>Total earnings (₹)</label><input id="de" type="number" inputmode="decimal"></div>
-  <div style="flex:1"><label>No. of trips</label><input id="dn" type="number" inputmode="numeric"></div></div>
-  <label>Petrol paid today (₹, optional)</label><input id="dp" type="number" inputmode="decimal">
-  <button class="btn" id="addDay">Save day</button>
-</div>
+  <div class="f hide" id="f-trip">
+    <label for="te">Earned on this trip (₹)</label><input id="te" type="number" inputmode="decimal">
+    <div class="two"><div><label for="k1">Me to pickup (km)</label><input id="k1" type="number" inputmode="decimal"></div>
+    <div><label for="k2">Pickup to drop (km)</label><input id="k2" type="number" inputmode="decimal"></div></div>
+    <div class="gps"><div class="hint" id="gi">Let your phone measure the distance. Keep this page open while you ride.</div><strong id="gk">0.00 km</strong><button id="gb">Start: heading to pickup</button></div>
+    <button class="save" id="sTrip">Save trip</button>
+  </div>
 
-<div class="card hide" id="t-trip">
-  <label>Earnings (₹)</label><input id="earn" type="number" inputmode="decimal">
-  <div class="row"><div style="flex:1"><label>Me → Pickup (km)</label><input id="k1" type="number" inputmode="decimal" step="0.01"></div>
-  <div style="flex:1"><label>Pickup → Drop (km)</label><input id="k2" type="number" inputmode="decimal" step="0.01"></div></div>
-  <button class="btn" id="addTrip">Save trip</button>
-</div>
+  <div class="f hide" id="f-fuel">
+    <label for="pp">Petrol price per litre (₹)</label><input id="pp" type="number" inputmode="decimal">
+    <label for="pa">Amount you paid (₹)</label><input id="pa" type="number" inputmode="decimal">
+    <div class="chips" id="pc"><button>100</button><button>200</button><button>300</button><button>500</button></div>
+    <p class="hint" id="lt">You got 0.00 litres</p>
+    <label for="mi">Bike mileage (km per litre)</label><input id="mi" type="number" inputmode="decimal">
+    <p class="hint">Used to estimate petrol cost per ride.</p>
+    <button class="save" id="sFuel">Save petrol</button>
+  </div>
 
-<div class="card hide" id="t-fuel">
-  <div class="row"><div style="flex:1"><label>Price per litre (₹)</label><input id="ppl" type="number" inputmode="decimal" value="130"></div>
-  <div style="flex:1"><label>Amount paid (₹)</label><input id="paid" type="number" inputmode="decimal"></div></div>
-  <div class="gps" id="litres">Litres: 0.00</div>
-  <button class="btn" id="addFuel">Save petrol</button>
-</div>
+  <div class="f hide" id="f-exp">
+    <label>What did you buy?</label>
+    <div class="chips" id="et"><button class="on" style="border-color:var(--ink)">Tea</button><button>Water</button><button>Snack</button><button>Other</button></div>
+    <label for="ea">Amount (₹)</label><input id="ea" type="number" inputmode="decimal">
+    <div class="chips" id="ec"><button>10</button><button>20</button><button>30</button><button>50</button></div>
+    <button class="save" id="sExp">Save expense</button>
+  </div>
+</section>
 
-<div class="card hide" id="t-exp">
-  <label>Type</label><select id="etype"><option>Water</option><option>Snack</option><option>Tea</option><option>Other</option></select>
-  <label>Amount (₹)</label><input id="eamt" type="number" inputmode="decimal">
-  <button class="btn" id="addExp">Save expense</button>
-</div>
+<section id="v-log" class="hide"><div id="log"></div><button class="save" id="csv" style="background:transparent;color:var(--ink);border:2px solid var(--ink)">Download CSV</button></section>
 
-<div class="card"><b>History</b><div id="log"></div></div>
-<button class="btn alt" id="csv">⬇ Export CSV</button>
+<nav><button data-v="home" class="on">Today</button><button data-v="add" class="add">+ Add</button><button data-v="log">History</button></nav>
+<div id="toast" role="status"></div>
 
 <script>
-var S={trips:[],fuel:[],exp:[]},range="today";
-try{var s=JSON.parse(localStorage.getItem("cap")||"null");if(s)S=s}catch(e){}
+var S={trips:[],fuel:[],exp:[],ppl:130,mi:45},rg="today",mode="day",etype="Tea";
+try{var s=JSON.parse(localStorage.getItem("cap")||"null");if(s){S.trips=s.trips||[];S.fuel=s.fuel||[];S.exp=s.exp||[];S.ppl=s.ppl||130;S.mi=s.mi||45}}catch(e){}
 function save(){try{localStorage.setItem("cap",JSON.stringify(S))}catch(e){}}
-var $=function(i){return document.getElementById(i)};
-var day=function(){return new Date().toISOString().slice(0,10)};
-var n=function(i){return parseFloat($(i).value)||0};
-var f=function(x){return Math.round(x*100)/100};
-function inR(e){return range==="all"||e.d===day()}
+var $=function(i){return document.getElementById(i)},q=function(s){return document.querySelectorAll(s)};
+function ds(off){return new Date(Date.now()-new Date().getTimezoneOffset()*6e4-(off||0)*864e5).toISOString().slice(0,10)}
+var n=function(i){return parseFloat($(i).value)||0},f=function(x){return Math.round(x*100)/100};
+var inr=function(x){return "₹"+Math.round(x).toLocaleString("en-IN")};
+var hr=function(h){return (h%12||12)+(h<12?" AM":" PM")};
+function inR(e){return rg==="all"||(rg==="today"?e.d===ds():e.d>=ds(6))}
+function grade(npk,avg){if(avg!==null)return npk>=avg*1.15?"good":npk<=avg*.85?"poor":"ok";return npk>=6?"good":npk>=3?"ok":"poor"}
+var WORD={good:"Good",ok:"Okay",poor:"Poor"};
 function render(){
-  var T=S.trips.filter(inR),F=S.fuel.filter(inR),E=S.exp.filter(inR);
-  var earn=0,k1=0,k2=0,fu=0,ex=0,lt=0;
-  T.forEach(function(t){earn+=t.e;k1+=t.k1;k2+=t.k2});
-  F.forEach(function(x){fu+=x.p;lt+=x.l});
-  E.forEach(function(x){ex+=x.a});
-  var km=k1+k2,net=earn-fu-ex;
-  var c=function(l,v){return '<div><div class="lbl">'+l+'</div><div class="big">'+v+'</div></div>'};
-  $("sum").innerHTML=c("Earnings","₹"+f(earn))+c("Trips",T.reduce(function(a,t){return a+(t.n||1)},0))+c("Total km",f(km))+c("To pickup / delivery",f(k1)+" / "+f(k2))+c("Petrol","₹"+f(fu)+" ("+f(lt)+" L)")+c("Extras","₹"+f(ex))+
-   '<div class="net"><div class="lbl">Net profit</div><div class="big '+(net>=0?"pos":"neg")+'">₹'+f(net)+'</div><div class="lbl">'+(km?"₹"+f(net/km)+" per km":"")+'</div></div>';
-  var items=[];
-  S.trips.forEach(function(t){items.push({k:"trips",id:t.id,d:t.d,tx:(t.n?"🗓️ ₹"+t.e+" · "+f(t.k2)+" km · "+t.n+" trips":"🏍️ ₹"+t.e+" · "+t.k1+"+"+t.k2+" km")})});
-  S.fuel.forEach(function(t){items.push({k:"fuel",id:t.id,d:t.d,tx:"⛽ ₹"+t.p+" @ ₹"+t.pp+"/L = "+f(t.l)+" L"})});
-  S.exp.forEach(function(t){items.push({k:"exp",id:t.id,d:t.d,tx:"☕ "+t.t+" ₹"+t.a})});
-  items.sort(function(a,b){return b.id-a.id});
-  $("log").innerHTML=items.slice(0,40).map(function(i){return '<div class="item"><span>'+i.d.slice(5)+" · "+i.tx+'</span><button onclick="del(\''+i.k+"',"+i.id+')">×</button></div>'}).join("")||'<div class="lbl">Nothing yet</div>';
-}
-function del(k,id){S[k]=S[k].filter(function(x){return x.id!==id});save();render()}
-$("addDay").onclick=function(){var km=n("o2")-n("o1"),e=n("de"),p=n("dp");if(km<=0&&!e)return;
-  S.trips.push({id:Date.now(),d:day(),e:e,k1:0,k2:Math.max(km,0),n:n("dn")||1});
-  if(p&&n("ppl")!==0||p){var pp=parseFloat(($("ppl")||{}).value)||130;S.fuel.push({id:Date.now()+1,d:day(),p:p,pp:pp,l:p/pp})}
-  ["o1","o2","de","dn","dp"].forEach(function(i){$(i).value=""});save();render()};
-$("addTrip").onclick=function(){if(!n("earn")&&!n("k1")&&!n("k2"))return;S.trips.push({id:Date.now(),d:day(),e:n("earn"),k1:n("k1"),k2:n("k2")});["earn","k1","k2"].forEach(function(i){$(i).value=""});save();render()};
-$("addFuel").onclick=function(){var p=n("paid"),pp=n("ppl");if(!p||!pp)return;S.fuel.push({id:Date.now(),d:day(),p:p,pp:pp,l:p/pp});$("paid").value="";$("litres").textContent="Litres: 0.00";save();render()};
-$("addExp").onclick=function(){var a=n("eamt");if(!a)return;S.exp.push({id:Date.now(),d:day(),t:$("etype").value,a:a});$("eamt").value="";save();render()};
-function lit(){$("litres").textContent="Litres: "+(n("ppl")?f(n("paid")/n("ppl")):0).toFixed(2)}
-$("paid").oninput=lit;$("ppl").oninput=lit;
-document.querySelectorAll("#range button").forEach(function(b){b.onclick=function(){range=b.dataset.r;document.querySelectorAll("#range button").forEach(function(x){x.classList.toggle("on",x===b)});render()}});
-document.querySelectorAll("#tabs button").forEach(function(b){b.onclick=function(){document.querySelectorAll("#tabs button").forEach(function(x){x.classList.toggle("on",x===b)});["day","trip","fuel","exp"].forEach(function(t){$("t-"+t).classList.toggle("hide",t!==b.dataset.t)})}});
-$("csv").onclick=function(){var r=["type,date,detail,amount"];S.trips.forEach(function(t){r.push("trip,"+t.d+",\""+t.k1+"+"+t.k2+" km\","+t.e)});S.fuel.forEach(function(t){r.push("petrol,"+t.d+",\""+f(t.l)+" L\","+t.p)});S.exp.forEach(function(t){r.push("extra,"+t.d+","+t.t+","+t.a)});
-  var a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(r.join("\n"));a.download="captain-data.csv";a.click()};
+  var T=S.trips.filter(inR),F=S.fuel.filter(inR),E=S.exp.filter(inR),earn=0,km=0,fu=0,lt=0,ex=0,tr=0,dead=0,sk=0;
+  T.forEach(function(t){earn+=t.e;km+=t.k1+t.k2;tr+=t.n||1;if(!t.n){dead+=t.k1;sk+=t.k1+t.k2}});
+  F.forEach(function(x){fu+=x.p;lt+=x.l});E.forEach(function(x){ex+=x.a});
+  var net=earn-fu-ex;
+  $("net").textContent=(net<0?"−":"")+inr(Math.abs(net));$("net").className="win"+(net<0?" neg":"");
+  var pf=0,xf=0,gf=0;
+  if(earn>0){pf=Math.min(100,fu/earn*100);xf=Math.min(100-pf,ex/earn*100);gf=100-pf-xf}else if(fu+ex>0){pf=100}
+  $("bar").innerHTML='<i class="p" style="width:'+pf+'%"></i><i class="x" style="width:'+xf+'%"></i><i class="g" style="width:'+gf+'%"></i>';
+  $("leg").innerHTML='<span><b style="background:var(--go)"></b>Earned '+inr(earn)+'</span><span><b style="background:var(--stop)"></b>Petrol '+inr(fu)+'</span><span><b style="background:#8A5A00"></b>Extras '+inr(ex)+'</span>';
+  var r=function(l,v){return '<div class="stat"><span>'+l+'</span><strong>'+v+'</strong></div>'};
+  $("stats").innerHTML=r("Distance",f(km)+" km")+r("Trips",tr)+r("Kept per km",km?inr(net/km):"–")+r("Petrol bought",f(lt)+" L");
 
+  var sg=S.trips.filter(function(t){return !t.n&&t.k1+t.k2>0}),fcpk=S.ppl/S.mi;
+  var avg=sg.length>=3?sg.reduce(function(a,t){return a+t.e/(t.k1+t.k2)-fcpk},0)/sg.length:null;
+  var ih="";
+  if(km>0&&earn>0){
+    var fe=km*fcpk,npk=(earn-fe)/km,gr=grade(npk,avg),tips=[];
+    if(sk>0&&dead/sk>.35)tips.push("About "+Math.round(dead/sk*100)+"% of your riding was just getting to pickups. Wait in a busy spot and accept nearer pickups.");
+    if(fe/earn>.25)tips.push("Petrol is about "+Math.round(fe/earn*100)+"% of your earnings. Skip far pickups and ride at a steady 40 to 50 km/h.");
+    if(sg.length>=5){var H={},C={},bh=-1;sg.forEach(function(t){var h=new Date(t.id).getHours();H[h]=(H[h]||0)+t.e;C[h]=(C[h]||0)+1});for(var h in H)if(bh<0||H[h]>H[bh])bh=+h;tips.push("Your best hour so far is "+hr(bh)+" to "+hr((bh+1)%24)+": "+inr(H[bh])+" from "+C[bh]+" trips. Be on the road then.")}
+    if(tips.length<2)tips.push("Aim for rides where the pickup is under a third of the total distance.");
+    ih='<div class="ins"><b class="g-'+gr+'">'+WORD[gr]+' '+(rg==="today"?"day":"stretch")+'</b><p>You earn '+inr(earn/km)+' per km before petrol and about '+inr(npk)+' per km after it (petrol estimated at '+S.mi+' km per litre).</p><ul>'+tips.slice(0,3).map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul></div>';
+  }else ih='<div class="ins"><b>How are you doing?</b><p>Add a day or a trip with distance to see a verdict and tips.</p></div>';
+  $("ins").innerHTML=ih;
+
+  var days={};
+  function add(d,id,a,b,v,k){(days[d]=days[d]||{net:0,it:[]});days[d].net+=v;days[d].it.push({id:id,a:a,b:b,v:v,k:k})}
+  S.trips.forEach(function(t){var tk=t.k1+t.k2,sub=t.n?f(t.k2)+" km, "+t.n+" trips":f(t.k1)+" + "+f(t.k2)+" km";
+    if(tk>0){var np=t.e/tk-fcpk,g=grade(np,avg);sub+='<br><span class="g-'+g+'">'+WORD[g]+(t.n?" day":" ride")+'</span> '+inr(np)+' per km after petrol'}
+    add(t.d,t.id,t.n?"Day total":"Trip",sub,t.e,"trips")});
+  S.fuel.forEach(function(t){add(t.d,t.id,"Petrol",f(t.l)+" L at ₹"+t.pp,-t.p,"fuel")});
+  S.exp.forEach(function(t){add(t.d,t.id,t.t,"",-t.a,"exp")});
+  var keys=Object.keys(days).sort().reverse(),h2="";
+  keys.slice(0,30).forEach(function(d){var D=days[d];D.it.sort(function(a,b){return b.id-a.id});
+    h2+='<div class="day"><span>'+(d===ds()?"Today":new Date(d+"T00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short"}))+'</span><span class="'+(D.net>=0?"in":"out")+'">'+(D.net<0?"−":"")+inr(Math.abs(D.net))+'</span></div>';
+    D.it.forEach(function(i){h2+='<div class="row"><div>'+i.a+(i.b?'<small>'+i.b+'</small>':'')+'</div><div><span class="'+(i.v>=0?"in":"out")+'">'+(i.v<0?"−":"+")+inr(Math.abs(i.v))+'</span><button aria-label="Delete" onclick="del(\''+i.k+"',"+i.id+')">×</button></div></div>'})});
+  $("log").innerHTML=h2||'<div class="empty">Nothing here yet. Tap + Add to log your first entry.</div>';
+}
+function del(k,id){if(confirm("Delete this entry?")){S[k]=S[k].filter(function(x){return x.id!==id});save();render()}}
+function toast(m){var t=$("toast");t.textContent=m;t.className="show";setTimeout(function(){t.className=""},1600)}
+function view(v){["home","add","log"].forEach(function(x){$("v-"+x).classList.toggle("hide",x!==v)});q("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.v===v)});window.scrollTo(0,0)}
+function done(m){save();render();toast(m);view("home")}
+q("nav button").forEach(function(b){b.onclick=function(){view(b.dataset.v)}});
+q("#rng button").forEach(function(b){b.onclick=function(){rg=b.dataset.r;q("#rng button").forEach(function(x){x.classList.toggle("on",x===b)});render()}});
+q("#modes button").forEach(function(b){b.onclick=function(){mode=b.dataset.m;q("#modes button").forEach(function(x){x.classList.toggle("on",x===b)});["day","trip","fuel","exp"].forEach(function(m){$("f-"+m).classList.toggle("hide",m!==mode)})}});
+function chips(id,fn){q("#"+id+" button").forEach(function(b){b.onclick=function(){fn(b)}})}
+chips("pc",function(b){$("pa").value=b.textContent;lit()});chips("ec",function(b){$("ea").value=b.textContent});
+chips("et",function(b){etype=b.textContent;q("#et button").forEach(function(x){x.classList.remove("on");x.style.borderColor=""});b.classList.add("on");b.style.borderColor="var(--ink)"});
+function lit(){$("lt").textContent="You got "+(n("pp")?(n("pa")/n("pp")).toFixed(2):"0.00")+" litres"}
+$("pa").oninput=lit;$("pp").oninput=lit;$("pp").value=S.ppl;
+$("mi").value=S.mi;$("mi").oninput=function(){S.mi=n("mi")||45;save();render()};
+function dk(){$("dkm").textContent="Distance: "+Math.max(0,f(n("o2")-n("o1")))+" km"}$("o1").oninput=dk;$("o2").oninput=dk;
+function clr(a){a.forEach(function(i){$(i).value=""})}
+$("sDay").onclick=function(){var km=n("o2")-n("o1"),e=n("de");if(km<=0&&!e)return toast("Enter odometer and earnings");S.trips.push({id:Date.now(),d:ds(),e:e,k1:0,k2:Math.max(km,0),n:n("dn")||1});clr(["o1","o2","de","dn"]);dk();done("Day saved")};
+$("sTrip").onclick=function(){if(!n("te")&&!n("k1")&&!n("k2"))return toast("Enter earnings or distance");S.trips.push({id:Date.now(),d:ds(),e:n("te"),k1:n("k1"),k2:n("k2")});clr(["te","k1","k2"]);done("Trip saved")};
+$("sFuel").onclick=function(){var p=n("pa"),pp=n("pp");if(!p||!pp)return toast("Enter price and amount");S.ppl=pp;S.fuel.push({id:Date.now(),d:ds(),p:p,pp:pp,l:p/pp});clr(["pa"]);lit();done("Petrol saved")};
+$("sExp").onclick=function(){var a=n("ea");if(!a)return toast("Enter an amount");S.exp.push({id:Date.now(),d:ds(),t:etype,a:a});clr(["ea"]);done("Expense saved")};
+$("csv").onclick=function(){var r=["type,date,detail,amount"];S.trips.forEach(function(t){r.push("earning,"+t.d+",\""+f(t.k1+t.k2)+" km\","+t.e)});S.fuel.forEach(function(t){r.push("petrol,"+t.d+",\""+f(t.l)+" L\","+t.p)});S.exp.forEach(function(t){r.push("extra,"+t.d+","+t.t+","+t.a)});var a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(r.join("\n"));a.download="captain-data.csv";a.click()};
 /* GPS */
-var ph=0,wid=null,last=null,dist=0,leg1=0;
-function hav(a,b){var R=6371,r=Math.PI/180,dl=(b.latitude-a.latitude)*r,dn=(b.longitude-a.longitude)*r;var x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a.latitude*r)*Math.cos(b.latitude*r)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(x))}
-function pos(p){var c=p.coords;if(c.accuracy>40)return;if(last){var d=hav(last,c);if(d>0.01){dist+=d;last=c}}else last=c;$("gpsKm").textContent=dist.toFixed(2)+" km"}
-$("gpsBtn").onclick=function(){
-  if(ph===0){if(!navigator.geolocation){$("gpsInfo").textContent="GPS not available";return}
-    dist=0;last=null;try{wid=navigator.geolocation.watchPosition(pos,function(e){$("gpsInfo").textContent="Location blocked: allow it in browser settings"},{enableHighAccuracy:true})}catch(e){}
-    ph=1;$("gpsBtn").textContent="📦 Picked up: start pickup → drop";$("gpsInfo").textContent="Measuring: me → pickup"}
-  else if(ph===1){leg1=dist;dist=0;last=null;ph=2;$("k1").value=f(leg1);$("gpsBtn").textContent="✅ Dropped: finish trip";$("gpsInfo").textContent="Measuring: pickup → drop"}
-  else{if(wid!==null)navigator.geolocation.clearWatch(wid);$("k2").value=f(dist);ph=0;$("gpsBtn").textContent="▶ Start: heading to pickup";$("gpsInfo").textContent="Done. Distances filled in the Trip form: add earnings and save.";$("gpsKm").textContent="0.00 km"}
+var ph=0,wid=null,last=null,dist=0;
+function hav(a,b){var R=6371,r=Math.PI/180,dl=(b.latitude-a.latitude)*r,dn=(b.longitude-a.longitude)*r,x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a.latitude*r)*Math.cos(b.latitude*r)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(x))}
+function pos(p){var c=p.coords;if(c.accuracy>40)return;if(last){var d=hav(last,c);if(d>0.01){dist+=d;last=c}}else last=c;$("gk").textContent=dist.toFixed(2)+" km"}
+$("gb").onclick=function(){
+  if(ph===0){if(!navigator.geolocation){$("gi").textContent="GPS is not available on this device.";return}
+    dist=0;last=null;wid=navigator.geolocation.watchPosition(pos,function(){$("gi").textContent="Location is blocked. Allow location for this site in browser settings."},{enableHighAccuracy:true});
+    ph=1;$("gb").textContent="Picked up: start pickup to drop";$("gi").textContent="Measuring: me to pickup"}
+  else if(ph===1){$("k1").value=f(dist);dist=0;last=null;ph=2;$("gb").textContent="Dropped: finish trip";$("gi").textContent="Measuring: pickup to drop"}
+  else{if(wid!==null)navigator.geolocation.clearWatch(wid);$("k2").value=f(dist);ph=0;$("gb").textContent="Start: heading to pickup";$("gi").textContent="Both distances filled in. Add your earnings and save.";$("gk").textContent="0.00 km"}
 };
 render();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
-</script>
-</body>
-</html>
+</script></body></html>
